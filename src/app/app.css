@@ -1,3 +1,5 @@
 .app-container {
     background: #45ad15;
+    height: 100vh;
+    color: white;
 }
