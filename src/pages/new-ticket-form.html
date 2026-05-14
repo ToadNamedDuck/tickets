@@ -1,10 +1,13 @@
+<h1>Submit New Ticket</h1>
 <div class="form-container">
-    <app-form-input label="Title" placeholder="Enter the title of your ticket" type="text" (valueChange)="valueChange($event)" [value]="this.ticketData['title']"/>
-    <app-form-input label="Username" placeholder="Enter your username" type="text" (valueChange)="valueChange($event)" [value]="this.ticketData['username']"/>
-    <app-form-input label="Description" placeholder="Enter the description of your ticket" type="text" (valueChange)="valueChange($event)" [value]="this.ticketData['description']"/>
+    <div class="form-inputs">
+        <app-form-input label="Title" placeholder="Enter the title of your ticket" type="text" (valueChange)="valueChange($event)" [value]="this.ticketData['title']"/>
+        <app-form-input label="Username" placeholder="Enter your username" type="text" (valueChange)="valueChange($event)" [value]="this.ticketData['username']"/>
+        <app-form-textarea label="Description" placeholder="Enter the description of your ticket" (valueChange)="valueChange($event)" [value]="this.ticketData['description']"/>
+    </div>
     <hr />
     <div class="button-holder">
-        <app-form-button type="submit" label="Submit" class="submit-button" (pressed)="onSubmit()" />
-        <app-form-button type="button" label="Cancel" class="cancel-button" (pressed)="onCancel()" />
+        <app-form-button type="submit" label="Submit" id="submit-button" (pressed)="onSubmit()" />
+        <app-form-button type="button" label="Cancel" id="cancel-button" (pressed)="onCancel()" />
     </div>
 </div>

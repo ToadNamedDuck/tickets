@@ -1,15 +1,15 @@
-import { Component, Input, Output, EventEmitter, input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 @Component({
-    selector: "app-form-input",
+    selector: "app-form-textarea",
     template: `
         <div class="form-input-container">
             <label class="form-input-label" for="{{label.toLowerCase()+'-input'}}">{{label}}</label>
-            <input id="{{label.toLowerCase()+'-input'}}" class="form-input" [type]="type" [placeholder]="placeholder" [value]="value" (input)="onInput($event)" />
+            <textarea id="{{label.toLowerCase()+'-input'}}" class="form-input" [placeholder]="placeholder" [value]="value" (input)="onInput($event)"></textarea>
         </div>
         `,
     styleUrl: "./input.css"
 })
-export class FormInput {
+export class FormTextArea {
     @Output() valueChange = new EventEmitter<{field: string, value: string}>();
     @Input() label = "";
     @Input() placeholder = "";

@@ -1,10 +1,12 @@
 import { Component, Input } from "@angular/core";
 import { FormInput } from "../components/input";
 import {FormButton} from "../components/form-button";
+import { FormTextArea } from "../components/textarea";
 @Component({
     selector: "new-ticket-form",
     templateUrl: "./new-ticket-form.html",
-    imports: [FormInput, FormButton],
+    styleUrl: "./new-ticket-form.css",
+    imports: [FormInput, FormButton, FormTextArea],
 })
 export class NewTicketForm {
 

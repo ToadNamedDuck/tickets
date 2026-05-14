@@ -1,0 +1,16 @@
+.form-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-input{
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+#description-input{
+    min-height: 100px;
+    max-height: 300px;
+}
