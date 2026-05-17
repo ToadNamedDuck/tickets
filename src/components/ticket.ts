@@ -3,11 +3,10 @@ import { Component, Input } from '@angular/core';
     selector: 'app-ticket',
     template: `
         <div class="ticket-container">
-            <h3 class="ticket-title">{{ this.ticket.title }}</h3>
+            <p class="ticket-title">{{ this.ticket.title }}</p>
+            <p class="ticket-username">Submitted by: {{ this.ticket.username }}</p>
             <p class="ticket-description">{{ this.ticket.description }}</p>
-            <div class="ticket-footer">
-                <span class="ticket-status">Status: {{ isOpen(this.ticket) }}</span>
-            </div>
+            <p class="ticket-status">Status: {{ isOpen(this.ticket) }}</p>
         </div>
     `,
     styleUrl: './ticket.css'

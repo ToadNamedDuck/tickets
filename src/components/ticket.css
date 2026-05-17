@@ -1,0 +1,12 @@
+.ticket-container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+.ticket-container > * {
+    width: 400px;
+    max-width: 33%;
+}
+.ticket-container > *:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
