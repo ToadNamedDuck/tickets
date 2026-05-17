@@ -1,13 +1,18 @@
-<h1>W I P</h1>
+<div class="tickets-page">
 
-<a routerLink="/newTicket" class="new-ticket-link">Submit New Ticket</a>
+    <h1>View Active and Resolved Tickets</h1>
 
-<h2>Active Tickets</h2>
-<div class="active-tickets">
-    <p>WIP</p>
-</div>
+    <button routerLink="/newTicket" class="new-ticket-link">Submit New Ticket</button>
 
-<h2>Closed Tickets</h2>
-<div class="closed-tickets">
-    <p>WIP</p>
+    <h2>Active Tickets</h2>
+    <hr/>
+    <div class="active-tickets">
+        <app-ticket-list></app-ticket-list>
+    </div>
+
+    <h2>Closed Tickets</h2>
+    <hr/>
+    <div class="closed-tickets">
+        <app-ticket-list></app-ticket-list>
+    </div>
 </div>
