@@ -8,6 +8,8 @@ const app = new Hono()
 app.use('*', cors({ origin: '*' }))
 const db = new sqlite3.Database('testdatabase.db');
 
+
+//Gets all tickets
 app.get('/tickets', async (c) => {
   try {
     const rows = await new Promise<any[]>((resolve, reject) => {
@@ -27,6 +29,8 @@ app.get('/tickets', async (c) => {
   }
 })
 
+
+//Create new ticket
 app.post('/newTicket', async (c) => {
   try {
     const body = await c.req.json()
@@ -64,6 +68,75 @@ app.post('/newTicket', async (c) => {
   catch (err) {
       console.error(err)
       return c.text('Error creating ticket', 500)
+  }
+})
+
+//Update a ticket's open/closed Status
+app.patch('/updateStatus/:id', async (c) => {
+  try {
+    const { id } = c.req.param()
+
+    await new Promise<void>((resolve, reject) => {
+      db.run(
+        'UPDATE tickets SET isOpen = NOT isOpen WHERE id = ?',
+        [id],
+        function (err) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve()
+          }
+        }
+      )
+    })
+
+    return c.text(`Ticket status updated successfully.`)
+  }
+  catch (err) {
+      console.error(err)
+      return c.text('Error updating ticket', 500)
+  }
+})
+
+//Edit ticket title or description
+app.patch('/editTicket/:ticketId', async (c) => {
+  try {
+    const { ticketId } = c.req.param()
+    const body = await c.req.json()
+    const { id, title, description, isOpen } = body || {}
+
+    //There must be a title and a description
+    if(id !== parseInt(ticketId)) {
+      return c.text('Ticket ID in URL does not match ticket ID in body', 400)
+    }
+    if (!title || !description || title.trim() === '' || description.trim() === '') {
+      return c.text('Ticket must contain both a title and a description', 400)
+    }
+    if (!isOpen){
+      return c.text('Cannot edit a closed ticket', 400)
+    }
+    const values: string[] = [title, description, new Date().toISOString(), ticketId]
+
+
+    await new Promise<void>((resolve, reject) => {
+      db.run(
+        `UPDATE tickets SET title = ?, description = ?, dateEdited = ? WHERE id = ?`,
+        [...values],
+        function (err) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve()
+          }
+        }
+      )
+    })
+
+    return c.text(`Ticket updated successfully.`)
+  }
+  catch (err) {
+      console.error(err)
+      return c.text('Error updating ticket', 500)
   }
 })
 
