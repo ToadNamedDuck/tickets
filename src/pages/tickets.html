@@ -7,12 +7,12 @@
     <h2>Active Tickets</h2>
     <hr/>
     <div class="active-tickets">
-        <app-ticket-list></app-ticket-list>
+        <app-ticket-list [tickets]="tickets" selection="Open"></app-ticket-list>
     </div>
 
     <h2>Closed Tickets</h2>
     <hr/>
     <div class="closed-tickets">
-        <app-ticket-list></app-ticket-list>
+        <app-ticket-list [tickets]="tickets" selection="Closed"></app-ticket-list>
     </div>
 </div>

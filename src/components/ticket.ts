@@ -12,10 +12,10 @@ import { Component, Input } from '@angular/core';
     styleUrl: './ticket.css'
 })
 export class TicketComponent {
-    @Input() ticket = { title: 'Default Ticket', username: 'Mr. Defaulto', description: 'This is my default ticket.', status: 1 };
+    @Input() ticket = { title: 'Default Ticket', username: 'Mr. Defaulto', description: 'This is my default ticket.', isOpen: 1 };
 
-        isOpen(ticket: { status: number }): string {
-        if (ticket.status === 1) {
+        isOpen(ticket: { isOpen: number }): string {
+        if (ticket.isOpen === 1) {
             return "Open";
         }
         return "Closed";
