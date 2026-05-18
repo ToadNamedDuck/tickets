@@ -18,6 +18,6 @@ import { TicketComponent } from './ticket';
     imports: [TicketComponent]
 })
 export class TicketListComponent {
-    @Input() tickets = [{ id: 1, title: 'Default Ticket', username: 'Mr. Defaulto', description: 'This is my default ticket.', isOpen: 1 }, { id: 2, title: 'Default Ticket 2', username: 'Ms. Defaulta', description: 'This is the second default ticket.', isOpen: 0 }];
+    @Input() tickets = [{ id: 1, title: 'Default Ticket', username: 'Mr. Defaulto', description: 'This is my default ticket.', isOpen: 1, dateOpened: "", dateEdited: "" }, { id: 2, title: 'Default Ticket 2', username: 'Ms. Defaulta', description: 'This is the second default ticket.', isOpen: 0, dateOpened: "", dateEdited: "" }];
     @Input() selection = "Open";
 }
