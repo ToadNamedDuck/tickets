@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { RouterLink } from '@angular/router';
 @Component({
     selector: 'app-ticket',
@@ -21,6 +21,9 @@ import { RouterLink } from '@angular/router';
             @if (isOpen(this.ticket) === 'Open') {
                 <button class="edit-button" [routerLink]="['/editTicket/', this.ticket.id]">Edit Ticket</button>
             }
+            @else {
+                <button class="delete-button" (click)="deleteTicket(this.ticket.id)">Delete Ticket</button>
+            }
         </div>
     `,
     styleUrl: './ticket.css',
@@ -32,6 +35,8 @@ import { RouterLink } from '@angular/router';
 export class TicketComponent {
     constructor(private cdRef: ChangeDetectorRef) {}
     @Input() ticket = { id: <number>0, title: <string>'', username: <string>'', description: <string>'', isOpen: <number>1, dateOpened: <string>'', dateEdited: <string | undefined>undefined };
+    @Output() ticketDeleted = new EventEmitter<number>();
+
     isOpen(ticket: { isOpen: number }): string {
         if (ticket.isOpen === 1) {
             return "Open";
@@ -64,6 +69,24 @@ export class TicketComponent {
                     this.cdRef.markForCheck();
                 })
 
+        }
+        catch (err) {
+            console.error(err)
+        }
+    }
+
+    deleteTicket(id: number): void {
+        try {
+            fetch(`http://localhost:3000/deleteTicket/${id}`, {
+                method: 'DELETE'
+            })
+            .then(() => {
+                //emit to notify parent
+                this.ticketDeleted.emit(id);
+            })
+            .catch(error => {
+                console.error("Error deleting ticket:", error);
+            });
         }
         catch (err) {
             console.error(err)

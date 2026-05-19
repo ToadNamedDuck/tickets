@@ -163,6 +163,33 @@ app.patch('/editTicket/:ticketId', async (c) => {
   }
 })
 
+//Delete a ticket
+app.delete('/deleteTicket/:id', async (c) => {
+  try {
+    const { id } = c.req.param()
+
+    await new Promise<void>((resolve, reject) => {
+      db.run(
+        'DELETE FROM tickets WHERE id = ?',
+        [id],
+        function (err) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve()
+          }
+        }
+      )
+    })
+
+    return c.text(`Ticket deleted successfully.`)
+  }
+  catch (err) {
+      console.error(err)
+      return c.text('Error deleting ticket', 500)
+  }
+})
+
 export default app
 
 serve({
