@@ -1,0 +1,12 @@
+<h1>Edit Ticket</h1>
+<div class="form-container">
+    <div class="form-inputs">
+        <app-form-input label="Title" placeholder="Enter the title of your ticket" type="text" (valueChange)="valueChange($event)" [value]="this.ticketData['title']"/>
+        <app-form-textarea label="Description" placeholder="Describe your issue" (valueChange)="valueChange($event)" [value]="this.ticketData['description']"/>
+    </div>
+    <hr />
+    <div class="button-holder">
+        <app-form-button type="submit" label="Submit" id="submit-button" (pressed)="onSubmit()" />
+        <app-form-button type="button" label="Cancel" id="cancel-button" (pressed)="onCancel()" />
+    </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
 @Component({
     selector: 'app-ticket',
     template: `
@@ -18,11 +19,12 @@ import { Component, Input, ChangeDetectorRef } from '@angular/core';
                 {{ isOpen(this.ticket) === 'Open' ? 'Close Ticket' : 'Reopen Ticket' }}
             </button>
             @if (isOpen(this.ticket) === 'Open') {
-                <button class="edit-button">Edit Ticket</button>
+                <button class="edit-button" [routerLink]="['/editTicket/', this.ticket.id]">Edit Ticket</button>
             }
         </div>
     `,
-    styleUrl: './ticket.css'
+    styleUrl: './ticket.css',
+    imports: [RouterLink]
 })
 
 
@@ -30,7 +32,6 @@ import { Component, Input, ChangeDetectorRef } from '@angular/core';
 export class TicketComponent {
     constructor(private cdRef: ChangeDetectorRef) {}
     @Input() ticket = { id: <number>0, title: <string>'', username: <string>'', description: <string>'', isOpen: <number>1, dateOpened: <string>'', dateEdited: <string | undefined>undefined };
-
     isOpen(ticket: { isOpen: number }): string {
         if (ticket.isOpen === 1) {
             return "Open";

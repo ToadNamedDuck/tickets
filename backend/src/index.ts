@@ -29,6 +29,29 @@ app.get('/tickets', async (c) => {
   }
 })
 
+//Get a single ticket by ID
+app.get('/tickets/:id', async (c) => {
+  try {
+    const { id } = c.req.param()
+    const row = await new Promise<any>((resolve, reject) => {
+      db.get('SELECT * FROM tickets WHERE id = ?', [id], (err, row) => {
+        if (err) {
+          reject(err)
+        } else if (!row) {
+          reject(new Error('Ticket not found'))
+        } else {
+          resolve(row)
+        }
+      })
+    })
+    return c.json(row)
+  }
+  catch (err) {
+      console.error(err)
+      return c.text('Error fetching ticket', 500)
+  }
+})
+
 
 //Create new ticket
 app.post('/newTicket', async (c) => {
