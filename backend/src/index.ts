@@ -78,8 +78,8 @@ app.patch('/updateStatus/:id', async (c) => {
 
     await new Promise<void>((resolve, reject) => {
       db.run(
-        'UPDATE tickets SET isOpen = NOT isOpen WHERE id = ?',
-        [id],
+        'UPDATE tickets SET isOpen = NOT isOpen, dateEdited = ? WHERE id = ?',
+        [new Date().toISOString(), id],
         function (err) {
           if (err) {
             reject(err)

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 @Component({
     selector: 'app-ticket',
     template: `
@@ -14,6 +14,10 @@ import { Component, Input } from '@angular/core';
                 @else {
                 <p class="ticket-date">Date Edited: N/A</p>
             }
+            <button class="status-button" (click)="toggleStatus(this.ticket.id)">
+                {{ isOpen(this.ticket) === 'Open' ? 'Close Ticket' : 'Reopen Ticket' }}
+            </button>
+            <button class="edit-button">Edit Ticket</button>
         </div>
     `,
     styleUrl: './ticket.css'
@@ -22,13 +26,44 @@ import { Component, Input } from '@angular/core';
 
 
 export class TicketComponent {
+    constructor(private cdRef: ChangeDetectorRef) {}
+    @Input() ticket = { id: <number>0, title: <string>'', username: <string>'', description: <string>'', isOpen: <number>1, dateOpened: <string>'', dateEdited: <string | undefined>undefined };
 
-    @Input() ticket = { title: <string> '', username: <string> '', description: <string> '', isOpen: <number> 1, dateOpened: <string> '', dateEdited: <string | undefined> undefined};
-
-        isOpen(ticket: { isOpen: number }): string {
+    isOpen(ticket: { isOpen: number }): string {
         if (ticket.isOpen === 1) {
             return "Open";
         }
         return "Closed";
+    }
+
+    toggleStatus(id: number): void {
+        // Call the backend API to toggle the status of the ticket
+        try{
+            fetch(`http://localhost:3000/updateStatus/${id}`,
+                {
+                method: 'PATCH',
+                headers:
+                {
+                    'Content-Type': 'application/json'
+                }
+                }
+            )
+                .then(() => {
+                    // Update the ticket's status in the frontend
+                    //Need toi manually trigger a refresh of the ticket list
+                    if (this.ticket.isOpen === 1) {
+                        this.ticket.isOpen = 0;
+                    }
+                    else {
+                        this.ticket.isOpen = 1;
+                    }
+                    this.ticket.dateEdited = new Date().toISOString();
+                    this.cdRef.markForCheck();
+                })
+
+        }
+        catch (err) {
+            console.error(err)
+        }
     }
 }

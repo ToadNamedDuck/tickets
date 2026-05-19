@@ -11,7 +11,10 @@ import { TicketComponent } from './ticket';
                 @if (selection === "Closed" && ticket.isOpen === 0) {
                     <app-ticket [ticket]="ticket"></app-ticket>
                 }
-            }
+                }
+                @if (tickets.filter(t => t.isOpen === (selection === "Open" ? 1 : 0)).length === 0) {
+                    <p class="no-tickets">No tickets to display.</p>
+                }
         </div>
     `,
     styleUrl: './ticket-list.css',
