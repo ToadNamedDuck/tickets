@@ -17,7 +17,9 @@ import { Component, Input, ChangeDetectorRef } from '@angular/core';
             <button class="status-button" (click)="toggleStatus(this.ticket.id)">
                 {{ isOpen(this.ticket) === 'Open' ? 'Close Ticket' : 'Reopen Ticket' }}
             </button>
-            <button class="edit-button">Edit Ticket</button>
+            @if (isOpen(this.ticket) === 'Open') {
+                <button class="edit-button">Edit Ticket</button>
+            }
         </div>
     `,
     styleUrl: './ticket.css'

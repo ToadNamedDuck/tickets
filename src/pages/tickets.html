@@ -1,10 +1,10 @@
 <div class="tickets-page">
 
-    <h1>View Active and Resolved Tickets</h1>
+    <h1>View Open and Closed Tickets</h1>
 
     <button routerLink="/newTicket" class="new-ticket-link">Submit New Ticket</button>
 
-    <h2>Active Tickets</h2>
+    <h2>Open Tickets</h2>
     <hr/>
     <div class="active-tickets">
         <app-ticket-list [tickets]="tickets" selection="Open"></app-ticket-list>
